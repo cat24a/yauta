@@ -1,0 +1,59 @@
+<script>
+  import Task from "./Task.svelte";
+  import Navbar from "./Navbar.svelte"
+  import NewTaskButton from "./NewTaskButton.svelte";
+
+  import Tasks from "./Tasks.js";
+
+  import {fade, slide, scale} from "svelte/transition";
+  import {flip} from "svelte/animate"
+
+  function superComplexCustomPolishTaskSorter(datestr) {
+    if(!datestr) return 1.5;
+    let days = Math.round((new Date(datestr).getTime() - Date.now())/24/3600_000);
+    console.log(days);
+    if(days == 0) return -1;
+    if(days < 0) return 0;
+    return days; 
+  }
+</script>
+
+<main>
+  <ul>
+    {#each $Tasks.filter(i => !i.done).sort((a, b) => superComplexCustomPolishTaskSorter(a.due) - superComplexCustomPolishTaskSorter(b.due)) as task (task.id)}
+      <li transition:scale animate:flip>
+        <Task {task}/>
+      </li>
+    {/each}
+    <NewTaskButton />
+
+    <h4>Done tasks:</h4>
+    {#each $Tasks.filter(i => i.done).sort((a, b) => b.done - a.done) as task (task.id)}
+      <li transition:scale animate:flip>
+        <Task {task}/>
+      </li>
+    {/each}
+  </ul>
+</main>
+
+<style>
+  main{
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ul {
+    padding-left: 0;
+    flex-grow: 1;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+  }
+
+  li {
+    display: block;
+  }
+</style>
