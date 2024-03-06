@@ -38,7 +38,7 @@
 
 <style>
   main{
-    height: 100dvh;
+    height: calc(100dvh - 2.5rem);
     display: flex;
     flex-direction: column;
   }
