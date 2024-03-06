@@ -52,7 +52,7 @@
 
     p {
         margin: 0;
-        line-height: 3.5rem;
+        padding: 1.25em 0;
         flex-grow: 1;
         outline: none;
     }
