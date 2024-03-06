@@ -24,6 +24,8 @@
     function deleteThisTask() {
         Tasks.update(data => data.filter(i => i.id != task.id));
     }
+
+    if(task.done && (Date.now()-task.done) > 7*24*3600_000) deleteThisTask()
 </script>
 
 <div class:fortomorrow={daysleft == 0} class:shouldbealreadydone={daysleft < 0} class:done={done}>
