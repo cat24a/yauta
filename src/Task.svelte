@@ -26,7 +26,7 @@
     }
 </script>
 
-<div class:fortomorrow={daysleft == 0} class:shouldbealreadydone={daysleft < 0}>
+<div class:fortomorrow={daysleft == 0} class:shouldbealreadydone={daysleft < 0} class:done={done}>
     <input type="checkbox" id="done" bind:checked={done} />
 
     <p contenteditable bind:innerText={name} on:keypress={event => {
@@ -85,6 +85,14 @@
     }
 
     .shouldbealreadydone input[type="date"] {
-        color: #a00
+        color: #a00;
+    }
+
+    .done input[type="date"] {
+        color: #555;
+    }
+
+    .done > * {
+        color: #555;
     }
 </style>
