@@ -20,9 +20,16 @@ export async function login() {
     }
     let response = await sendApiRequest({
         user: sha3(loginData.user),
-        pass: sha3(loginData.pass),
+        pass: loginData.passhash,
         action: "new_session",
     });
+    if(response.error) {
+        response = await sendApiRequest({
+            user: sha3(loginData.user),
+            pass: sha3(loginData.pass),
+            action: "new_session",
+        });
+    }
     if(response.error) {
         if(response.error="wrong_data")
             announceFail("wrong password");
@@ -55,10 +62,19 @@ async function saveData() {
         let response = await sendApiRequest({
             action: "update",
             user: sha3(loginData.user),
-            pass: sha3(loginData.pass),
+            pass: loginData.passhash,
             session,
             data: aes(data, loginData.pass),
-        })
+        });
+        if(response.error) {
+            response = await sendApiRequest({
+                action: "update",
+                user: sha3(loginData.user),
+                pass: sha3(loginData.pass),
+                session,
+                data: aes(data, loginData.pass),
+            });
+        }
         if(response.error) {
             announceFail("disconnected because of login on another device - please, refresh the page", false);
             return;

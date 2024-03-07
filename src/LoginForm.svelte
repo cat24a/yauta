@@ -1,6 +1,6 @@
 <script>
     import {createEventDispatcher} from "svelte";
-    import {sha3, aes, unaes} from './crypto_util.js';
+    import {sha3, aes, yautahash} from './crypto_util.js';
     import {message} from "./account.js";
     import { sendApiRequest } from "./api.js";
 
@@ -13,6 +13,7 @@
 
 
     async function handleSubmit() {
+        const passhash = yautahash(user, pass);
         if(isRegistration) {
             await sendApiRequest({
                 "user":sha3(user),
@@ -21,7 +22,7 @@
                 "action":"add_user"
             });
         }
-        dispatchEvent("login", {user, pass});
+        dispatchEvent("login", {user, pass, passhash});
     }
 </script>
 

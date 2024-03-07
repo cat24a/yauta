@@ -5,6 +5,15 @@ import {inflate, deflate} from "pako";
 export function sha3(x) {
     return CryptoJS.SHA3(x).toString(CryptoJS.enc.Base64);
 }
+export function yautahash(user, pass) {
+    const base = `${user}::${pass}::`;
+    let i = 0;
+    while(true) {
+        if(!(CryptoJS.SHA3(base+i).words[15]&0xf0f0000f))
+            return CryptoJS.SHA3(`${pass}::${i}`).toString(CryptoJS.enc.Base64);
+        i++;
+    }
+}
 export function aes(x, pass) {
     return CryptoJS.AES.encrypt(WordArray.create(compress(JSON.stringify(x))), pass).toString();
 }
