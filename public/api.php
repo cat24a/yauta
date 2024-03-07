@@ -4,9 +4,10 @@ header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Headers: *");
 header("Cache-Control: no-store");
 
-$request = json_decode(gzdecode(file_get_contents("php://input")));
-$db = new PDO("mysql:host=127.0.0.1;dbname=cataszet_todo", "cataszet_todo", "fM8dJ5A8ChueZjefXgNf");
+require "dbdata.php";
+$db = new PDO($db_dsn, $db_user, $db_pass);
 
+$request = json_decode(gzdecode(file_get_contents("php://input")));
 if(isset($request->user)) $request->user = base64_decode($request->user);
 if(isset($request->pass)) $request->pass = base64_decode($request->pass);
 if(isset($request->session)) $request->session = base64_decode($request->session);
