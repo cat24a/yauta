@@ -14,25 +14,12 @@ export function yautahash(user, pass) {
         i++;
     }
 }
+
 export function aes(x, pass) {
-    return CryptoJS.AES.encrypt(WordArray.create(compress(JSON.stringify(x))), pass).toString();
+    return CryptoJS.AES.encrypt(WordArray.create(deflate(JSON.stringify(x))), pass).toString();
 }
 export function unaes(x, pass) {
-    return JSON.parse(decompress(wordArray2Uint8Array(CryptoJS.AES.decrypt(x, pass))));
-}
-
-/**
- * @param {string} data
- */
-export function compress(data) {
-    return deflate(data);
-}
-
-/**
- * @param {Uint8Array} data
- */
-export function decompress(data) {
-    return inflate(data, {to: "string"});
+    return JSON.parse(inflate(wordArray2Uint8Array(CryptoJS.AES.decrypt(x, pass)), {to:"string"}));
 }
 
 function wordArray2Uint8Array(wordArray) { // made by ChatGPT
