@@ -4,7 +4,7 @@
 
 <nav>
     <span id="logo">YAUTA</span>
-    <a href="https://github.com/cat24a/yauta/issues"><i class="fa-brands fa-github"></i></a>
+    <a href="https://github.com/cat24a/yauta/issues" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
 </nav>
 
 <style>
