@@ -10,7 +10,7 @@ export function yautahash(user, pass) {
     let i = 0;
     while(true) {
         if(!(CryptoJS.SHA3(base+i).words[15]&0xf0f0000f))
-            return CryptoJS.SHA3(`${pass}::${i}`).toString(CryptoJS.enc.Base64);
+            return CryptoJS.SHA3(`${user}::${pass}:::${i}`).toString(CryptoJS.enc.Base64);
         i++;
     }
 }
