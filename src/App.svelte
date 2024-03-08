@@ -1,11 +1,10 @@
 <script>
   import Task from "./Task.svelte";
-  import Navbar from "./Navbar.svelte"
   import NewTaskButton from "./NewTaskButton.svelte";
 
   import Tasks from "./Tasks.js";
 
-  import {fade, slide, scale} from "svelte/transition";
+  import {scale} from "svelte/transition";
   import {flip} from "svelte/animate"
 
   function superComplexCustomPolishTaskSorter(datestr) {
