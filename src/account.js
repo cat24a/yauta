@@ -6,11 +6,12 @@ import { sendApiRequest } from "./api.js";
 export const needLogin = writable(false);
 export const message = writable("logging in...")
 export const isLoggedIn = writable(false);
-export let loginData = JSON.parse(localStorage.getItem("logindata"));
+let loginData = JSON.parse(localStorage.getItem("logindata"));
 let session = "";
 let dataChanged = false;
 let data = {};
 let saveTimeout;
+let useYH = true;
 
 export async function login() {
     message.set("logging in...");
@@ -18,6 +19,7 @@ export async function login() {
         announceFail("login required");
         return;
     }
+    useYH = true;
     let response = await sendApiRequest({
         user: sha3(loginData.user),
         pass: loginData.passhash,
@@ -29,6 +31,7 @@ export async function login() {
             pass: sha3(loginData.pass),
             action: "new_session",
         });
+        useYH = false;
     }
     if(response.error) {
         if(response.error="wrong_data")
@@ -38,7 +41,7 @@ export async function login() {
         return;
     }
     session = response.session;
-    data = unaes(response.data, loginData.pass);
+    data = unaes(response.data, useYH ? loginData.key : loginData.pass);
     Tasks.set(data.tasks || []);
     dataChanged = false;
     needLogin.set(false);
@@ -62,19 +65,10 @@ async function saveData() {
         let response = await sendApiRequest({
             action: "update",
             user: sha3(loginData.user),
-            pass: loginData.passhash,
+            pass: useYH ? loginData.passhash : sha3(loginData.pass),
             session,
-            data: aes(data, loginData.pass),
+            data: aes(data, useYH ? loginData.key : loginData.pass),
         });
-        if(response.error) {
-            response = await sendApiRequest({
-                action: "update",
-                user: sha3(loginData.user),
-                pass: sha3(loginData.pass),
-                session,
-                data: aes(data, loginData.pass),
-            });
-        }
         if(response.error) {
             announceFail("disconnected because of login on another device - please, refresh the page", false);
             return;

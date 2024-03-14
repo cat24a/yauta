@@ -6,11 +6,12 @@ export function sha3(x) {
     return CryptoJS.SHA3(x).toString(CryptoJS.enc.Base64);
 }
 export function yautahash(user, pass) {
-    const base = `${user}::${pass}::`;
+    const base = `${user}::${pass}:::`;
     let i = 0;
     while(true) {
-        if(!(CryptoJS.SHA3(base+i).words[15]&0xf0f0000f))
-            return CryptoJS.SHA3(`${user}::${pass}:::${i}`).toString(CryptoJS.enc.Base64);
+        if(!(CryptoJS.SHA3(base+i).words[15]&0xf0f000ff)) {
+            return `${user}::${pass}:::${i}`;
+        }
         i++;
     }
 }

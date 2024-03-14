@@ -1,8 +1,8 @@
 <script>
     import {createEventDispatcher} from "svelte";
     import {sha3, aes, yautahash} from './crypto_util.js';
-    import {message} from "./account.js";
-    import { sendApiRequest } from "./api.js";
+    import {login, message, setLoginData} from "./account.js";
+    import {sendApiRequest} from "./api.js";
 
     let dispatchEvent = createEventDispatcher();
     let isRegistration = false;
@@ -13,16 +13,20 @@
 
 
     async function handleSubmit() {
-        const passhash = yautahash(user, pass);
+        const key = yautahash(user, pass);
+        const passhash = sha3(key);
         if(isRegistration) {
             await sendApiRequest({
                 "user":sha3(user),
-                "pass":sha3(pass),
-                "data":aes({}, pass),
+                "pass":passhash /*sha3(pass)*/,
+                "data":aes({}, key /*pass*/),
                 "action":"add_user"
             });
         }
-        dispatchEvent("login", {user, pass, passhash});
+        const loginData = {user, pass, passhash, key};
+        setLoginData(loginData);
+        localStorage.setItem("logindata", JSON.stringify(loginData));
+        login();
     }
 </script>
 
