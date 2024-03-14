@@ -10,8 +10,7 @@
   function superComplexCustomPolishTaskSorter(datestr) {
     if(!datestr) return 1.5;
     let days = Math.round((new Date(datestr).getTime() - Date.now())/24/3600_000);
-    if(days == 0) return -1;
-    if(days < 0) return 0;
+    if(days == 0) return Number.NEGATIVE_INFINITY;
     return days; 
   }
 </script>
