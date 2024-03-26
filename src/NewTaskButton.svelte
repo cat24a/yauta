@@ -5,7 +5,16 @@
 	function handleSubmit() {
 		if (input == "") return;
 		if ($Settings.dogmode && $Settings.dogcheck) {
-			if (!input.includes("dog")) {
+			if (
+				!(
+					input.includes("dog") ||
+					input.includes("pies") ||
+					input.includes("psa") ||
+					input.includes("psu") ||
+					input.includes("psem") ||
+					input.includes("psie")
+				)
+			) {
 				alert(
 					'dogcheck: Error: no dog found - please add "dog" to your task or disable dogcheck'
 				);
