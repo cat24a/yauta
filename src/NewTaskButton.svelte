@@ -1,8 +1,15 @@
 <script>
+	import Settings from "./Settings.js";
     import Tasks from "./Tasks.js";
     let input;
     function handleSubmit() {
         if(input == "") return;
+        if($Settings.dogmode && $Settings.dogcheck) {
+            if(!input.includes("dog")) {
+                alert("dogcheck: Error: no dog found - please add \"dog\" to your task or disable dogcheck");
+                return;
+            }
+        }
         Tasks.update(current => [
             ...current,
             {

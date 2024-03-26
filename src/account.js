@@ -2,6 +2,7 @@ import { writable } from "svelte/store";
 import Tasks from "./Tasks.js"
 import {sha3, aes, unaes} from "./crypto_util.js";
 import { sendApiRequest } from "./api.js";
+import Settings from "./Settings.js";
 
 export const needLogin = writable(false);
 export const message = writable("logging in...")
@@ -42,7 +43,8 @@ export async function login() {
     }
     session = response.session;
     data = unaes(response.data, useYH ? loginData.key : loginData.pass);
-    Tasks.set(data.tasks || []);
+    Tasks.set(data.tasks||[]);
+    Settings.set(data.settings||{});
     dataChanged = false;
     needLogin.set(false);
     isLoggedIn.set(true);
@@ -54,11 +56,16 @@ export function setLoginData(newData) {
     loginData = newData;
 }
 
-Tasks.subscribe(newTasks => {
-    dataChanged = true;
-    data.tasks = newTasks;
-    console.log("registered changes")
-});
+function addStoredStore(store, name) {
+    store.subscribe(newTasks => {
+        dataChanged = true;
+        data.tasks = newTasks;
+        console.log("registered changes")
+    });
+}
+
+addStoredStore(Tasks);
+addStoredStore(Settings);
 
 async function saveData() {
     if(dataChanged && session) {
