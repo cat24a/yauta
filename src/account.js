@@ -57,13 +57,13 @@ export function setLoginData(newData) {
 function addStoredStore(store, name) {
 	store.subscribe(newTasks => {
 		dataChanged = true;
-		data.tasks = newTasks;
+		data[name] = newTasks;
 		console.log("registered changes");
 	});
 }
 
-addStoredStore(Tasks);
-addStoredStore(Settings);
+addStoredStore(Tasks, "tasks");
+addStoredStore(Settings, "settings");
 
 async function saveData() {
 	if (dataChanged && session) {
