@@ -1,13 +1,18 @@
 <script>
 	import Tasks from "./Tasks.js";
+	import Settings from "./Settings.js";
+
+	import { addGems } from "./gems.js";
 
 	export let task;
+
 	let done = task.done;
 	let name = task.name;
 	let due = task.due;
+
 	$: updateValue("name", name);
-	$: !task.done == !done ? null : updateValue("done", done ? Date.now() : 0);
 	$: updateValue("due", due);
+
 	let daysleft;
 	$: daysleft = Math.round(
 		(new Date(due).getTime() - Date.now()) / 24 / 3600_000
@@ -29,6 +34,25 @@
 
 	if (task.done && Date.now() - task.done > 7 * 24 * 3600_000)
 		deleteThisTask();
+
+	function handleDone() {
+		updateValue("done", done ? Date.now() : false);
+
+		//gems
+		if ($Settings.gem_enable) {
+			if (done) {
+				let gemcount = 10;
+				if (!due) gemcount = $Settings.gem_gems_notime;
+				else if (daysleft == 0) gemcount = $Settings.gem_gems_ontime;
+				else if (daysleft > 0) gemcount = $Settings.gem_gems_beforetime;
+				else if (daysleft < 0) gemcount = $Settings.gem_gems_aftertime;
+				addGems(gemcount);
+				updateValue("gems", gemcount);
+			} else {
+				addGems(-(task.gems || $Settings.gem_gems_ontime));
+			}
+		}
+	}
 </script>
 
 <div
@@ -36,7 +60,12 @@
 	class:shouldbealreadydone={daysleft < 0}
 	class:done
 >
-	<input type="checkbox" id="done" bind:checked={done} />
+	<input
+		type="checkbox"
+		id="done"
+		bind:checked={done}
+		on:change={handleDone}
+	/>
 
 	<p
 		contenteditable
