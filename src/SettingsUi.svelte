@@ -18,6 +18,16 @@
 <main>
 	<h1>YUPS (YAUTA User Preferences and Settings)</h1>
 	<section>
+		<h3>General</h3>
+		<p>
+			Show saving state:
+			<input
+				type="checkbox"
+				bind:checked={$Settings.general_showsavingstate}
+			/>
+		</p>
+	</section>
+	<section>
 		<h3>Dog settings</h3>
 		<p>
 			Enable dog mode (experimental - use at your own risk)

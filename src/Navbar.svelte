@@ -1,6 +1,9 @@
 <script>
 	import { createEventDispatcher } from "svelte";
+
 	import Settings from "./Settings";
+	import { done } from "./account";
+
 	import GemDisplay from "./GemDisplay.svelte";
 
 	const dispatchEvent = createEventDispatcher();
@@ -12,6 +15,10 @@
 	<span id="logo">
 		YAUTA {#if $Settings.dogmode}dog mode{/if}
 	</span>
+
+	{#if $Settings.general_showsavingstate && !$done}
+		<div><i class="fa-solid fa-spinner fa-spin"></i></div>
+	{/if}
 
 	{#if $Settings.gem_enable}
 		<GemDisplay />
@@ -59,5 +66,9 @@
 
 	.activated {
 		background-color: #fff4;
+	}
+
+	div {
+		padding: 0.5rem;
 	}
 </style>

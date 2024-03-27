@@ -13,6 +13,7 @@ let dataChanged = false;
 let data = {};
 let saveTimeout;
 let useYH = true;
+export const done = writable(false);
 
 export async function login() {
 	message.set("logging in...");
@@ -48,6 +49,7 @@ export async function login() {
 	isLoggedIn.set(true);
 	clearTimeout(saveTimeout);
 	saveData();
+	done.set(true);
 }
 
 export function setLoginData(newData) {
@@ -58,6 +60,7 @@ function addStoredStore(store, name) {
 	store.subscribe(newTasks => {
 		dataChanged = true;
 		data[name] = newTasks;
+		done.set(false);
 		console.log("registered changes");
 	});
 }
@@ -83,6 +86,7 @@ async function saveData() {
 		}
 		console.log("saved");
 		dataChanged = false;
+		done.set(true);
 	}
 	saveTimeout = setTimeout(saveData, 1000);
 }
