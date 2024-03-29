@@ -90,6 +90,11 @@
 		display: flex;
 		/* padding: 1em 1.5em; */
 		border-top: 1px solid lightgray;
+		width: 100dvw;
+	}
+
+	div > * {
+		flex-shrink: 0;
 	}
 
 	p {
@@ -97,6 +102,8 @@
 		padding: 1.25em 0;
 		flex-grow: 1;
 		outline: none;
+		word-break: break-word;
+		flex-shrink: 1;
 	}
 
 	#done {
