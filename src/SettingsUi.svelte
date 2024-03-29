@@ -5,12 +5,11 @@
 	let gem_url_new_button;
 	async function handleNewGemUrl() {
 		gem_url_new_button.disabled = true;
-		const response = await fetch(
-			"https://gemstore.cat24a.s1.zetohosting.pl/",
-			{ method: "CREATE" }
-		);
+		const response = await fetch("https://gemapi.yauta.top/", {
+			method: "CREATE",
+		});
 		const url = await response.text();
-		$Settings.gem_url = `https://gemstore.cat24a.s1.zetohosting.pl/${url}`;
+		$Settings.gem_url = `https://gemapi.yauta.top/${url}`;
 		gem_url_new_button.disabled = false;
 	}
 </script>

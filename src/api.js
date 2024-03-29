@@ -7,13 +7,10 @@ import Pako from "pako";
 export async function sendApiRequest(data) {
 	let response;
 	try {
-		response = await fetch(
-			"https://todo.cat24a.s1.zetohosting.pl/api.php",
-			{
-				method: "POST",
-				body: Pako.gzip(JSON.stringify(data)),
-			}
-		);
+		response = await fetch("https://yauta.top/api.php", {
+			method: "POST",
+			body: Pako.gzip(JSON.stringify(data)),
+		});
 	} catch {
 		return { error: "network_error" };
 	}
