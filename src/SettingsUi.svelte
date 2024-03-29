@@ -25,6 +25,13 @@
 				bind:checked={$Settings.general_showsavingstate}
 			/>
 		</p>
+		<p>
+			Date refresh hour (UTC):
+			<input
+				type="number"
+				bind:value={$Settings.general_daterefreshtime}
+			/>
+		</p>
 	</section>
 	<section>
 		<h3>Dog settings</h3>

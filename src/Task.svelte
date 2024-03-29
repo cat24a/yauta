@@ -14,8 +14,10 @@
 	$: updateValue("due", due);
 
 	let daysleft;
-	$: daysleft = Math.round(
-		(new Date(due).getTime() - Date.now()) / 24 / 3600_000
+	$: daysleft = Math.floor(
+		((new Date(due).getTime() - Date.now()) / 3600_000 +
+			$Settings.general_daterefreshtime) /
+			24
 	);
 
 	function updateValue(key, value) {

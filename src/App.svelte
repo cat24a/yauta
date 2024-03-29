@@ -3,14 +3,17 @@
 	import NewTaskButton from "./NewTaskButton.svelte";
 
 	import Tasks from "./Tasks.js";
+	import Settings from "./Settings.js";
 
 	import { scale } from "svelte/transition";
 	import { flip } from "svelte/animate";
 
 	function superComplexCustomPolishTaskSorter(datestr) {
 		if (!datestr) return 1.5;
-		let days = Math.round(
-			(new Date(datestr).getTime() - Date.now()) / 24 / 3600_000
+		let days = Math.floor(
+			((new Date(datestr).getTime() - Date.now()) / 3600_000 +
+				$Settings.general_daterefreshtime) /
+				24
 		);
 		if (days == 0) return Number.NEGATIVE_INFINITY;
 		return days;
