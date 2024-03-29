@@ -34,24 +34,32 @@
 	<table>
 		<tr>
 			<td>User:</td>
-			<td><input type="text" name="user" bind:value={user} /></td>
+			<td>
+				<input type="text" name="user" bind:value={user} />
+			</td>
 		</tr>
 		<tr>
-			<td>Password:</td>
-			<td><input type="password" name="password" bind:value={pass} /></td>
+			<td>Password: </td>
+			<td>
+				<input type="password" name="password" bind:value={pass} />
+			</td>
 		</tr>
 		<tr>
-			<td><button type="submit">{actionName}</button></td>
-			<td
-				><a
+			<td>
+				<button type="submit">{actionName}</button>
+			</td>
+			<td>
+				<!-- svelte-ignore a11y-invalid-attribute -->
+				<a
 					on:click={() => {
 						isRegistration = !isRegistration;
 					}}
 					href="#"
-					>{#if !isRegistration}don't
-					{/if}have an account?</a
-				></td
-			>
+				>
+					{#if !isRegistration}don't{/if}
+					have an account?
+				</a>
+			</td>
 		</tr>
 	</table>
 	<p>{$message}</p>
