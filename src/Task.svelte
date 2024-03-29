@@ -49,7 +49,7 @@
 				addGems(gemcount);
 				updateValue("gems", gemcount);
 			} else {
-				addGems(-(task.gems || $Settings.gem_gems_ontime));
+				addGems(-(task.gems || 0));
 			}
 		}
 	}
