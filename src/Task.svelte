@@ -38,7 +38,7 @@
 		deleteThisTask();
 
 	function handleDone() {
-		updateValue("done", done ? Date.now() : false);
+		updateValue("done", task.done ? false : Date.now());
 
 		//gems
 		if ($Settings.gem_enable) {
@@ -69,12 +69,7 @@
 	class:done
 	id="task"
 >
-	<input
-		type="checkbox"
-		id="done"
-		bind:checked={done}
-		on:change={handleDone}
-	/>
+	<input type="button" id="done" on:click={handleDone} />
 
 	<p
 		contenteditable
@@ -125,9 +120,19 @@
 
 	#done {
 		margin: 1rem 1.5rem;
-		border: 2px solid lightgray;
+		border: 2px solid #ddd;
 		height: 1.5rem;
 		width: 1.5rem;
+		background-color: #eee;
+	}
+	#done:hover {
+		background-color: #ccc;
+	}
+	.done #done {
+		background-color: #19f;
+	}
+	.done #done:hover {
+		background-color: #2af;
 	}
 
 	#gemcounter {
