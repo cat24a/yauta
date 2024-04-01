@@ -43,17 +43,23 @@
 		//gems
 		if ($Settings.gem_enable) {
 			if (done) {
-				let gemcount = 10;
-				if (!due) gemcount = $Settings.gem_gems_notime;
-				else if (daysleft == 0) gemcount = $Settings.gem_gems_ontime;
-				else if (daysleft > 0) gemcount = $Settings.gem_gems_beforetime;
-				else if (daysleft < 0) gemcount = $Settings.gem_gems_aftertime;
 				addGems(gemcount);
 				updateValue("gems", gemcount);
 			} else {
 				addGems(-(task.gems || 0));
+				updateValue("gems", undefined);
 			}
 		}
+	}
+
+	// gems
+	let gemcount;
+	$: {
+		if (task.gems !== undefined) gemcount = task.gems;
+		else if (!due) gemcount = $Settings.gem_gems_notime;
+		else if (daysleft == 0) gemcount = $Settings.gem_gems_ontime;
+		else if (daysleft > 0) gemcount = $Settings.gem_gems_beforetime;
+		else if (daysleft < 0) gemcount = $Settings.gem_gems_aftertime;
 	}
 </script>
 
@@ -61,6 +67,7 @@
 	class:fortomorrow={daysleft == 0}
 	class:shouldbealreadydone={daysleft < 0}
 	class:done
+	id="task"
 >
 	<input
 		type="checkbox"
@@ -80,6 +87,13 @@
 		}}
 	/>
 
+	{#if $Settings.gem_enable}
+		<div id="gemcounter" class:gem-undefined={task.gems === undefined}>
+			<i class="fa-regular fa-gem" />
+			<div>{gemcount}</div>
+		</div>
+	{/if}
+
 	<input type="date" bind:value={due} />
 
 	<button type="button" id="delete" on:dblclick={deleteThisTask}>
@@ -88,14 +102,15 @@
 </div>
 
 <style>
-	div {
+	#task {
 		display: flex;
 		/* padding: 1em 1.5em; */
 		border-top: 1px solid lightgray;
 		width: 100dvw;
+		align-items: center;
 	}
 
-	div > * {
+	#task > * {
 		flex-shrink: 0;
 	}
 
@@ -113,6 +128,20 @@
 		border: 2px solid lightgray;
 		height: 1.5rem;
 		width: 1.5rem;
+	}
+
+	#gemcounter {
+		background-color: lightblue;
+		border-radius: 1rem;
+		height: 2.5rem;
+		width: 2.5rem;
+		margin: 0 1rem;
+		text-align: center;
+		vertical-align: middle;
+	}
+
+	input[type="date"] {
+		height: 3rem;
 	}
 
 	button {
