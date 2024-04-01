@@ -38,18 +38,18 @@
 		deleteThisTask();
 
 	function handleDone() {
-		updateValue("done", task.done ? false : Date.now());
-
 		//gems
 		if ($Settings.gem_enable) {
 			if (!task.done) {
 				addGems(gemcount);
 				updateValue("gems", gemcount);
 			} else {
-				addGems(-(task.gems || 0));
+				addGems(-gemcount);
 				updateValue("gems", undefined);
 			}
 		}
+
+		updateValue("done", task.done ? false : Date.now());
 	}
 
 	// gems
