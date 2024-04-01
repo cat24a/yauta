@@ -3,6 +3,7 @@ import Tasks from "./Tasks.js";
 import { sha3, aes, unaes } from "./crypto_util.js";
 import { sendApiRequest } from "./api.js";
 import Settings from "./Settings.js";
+import { defaults as defaultSettings } from "./Settings.js";
 
 export const needLogin = writable(false);
 export const message = writable("logging in...");
@@ -43,7 +44,10 @@ export async function login() {
 	session = response.session;
 	data = unaes(response.data, useYH ? loginData.key : loginData.pass);
 	Tasks.set(data.tasks || []);
-	Settings.set(data.settings || {});
+	Settings.set({
+		...defaultSettings,
+		...(data.settings || {}),
+	});
 	dataChanged = false;
 	needLogin.set(false);
 	isLoggedIn.set(true);
