@@ -42,7 +42,7 @@
 
 		//gems
 		if ($Settings.gem_enable) {
-			if (done) {
+			if (!task.done) {
 				addGems(gemcount);
 				updateValue("gems", gemcount);
 			} else {
