@@ -64,6 +64,13 @@
 			</p>
 			<small>WARNING: gem amount is NOT end-to-end encrypted</small>
 			<p>
+				Show gem badge on tasks:
+				<input
+					type="checkbox"
+					bind:checked={$Settings.gem_show_badge}
+				/>
+			</p>
+			<p>
 				Before time gems:
 				<input
 					type="number"
