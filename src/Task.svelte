@@ -6,6 +6,11 @@
 
 	export let task;
 
+	/**
+	 * @type {HTMLDivElement}
+	 */
+	let taskNode;
+
 	let done = task.done;
 	let name = task.name;
 	let due = task.due;
@@ -61,6 +66,18 @@
 		else if (daysleft > 0) gemcount = $Settings.gem_gems_beforetime;
 		else if (daysleft < 0) gemcount = $Settings.gem_gems_aftertime;
 	}
+
+	$: if (taskNode) taskNode.style.setProperty("--gem-count", gemcount);
+	$: if (taskNode)
+		taskNode.style.setProperty(
+			"--gem-count-max",
+			Math.max(
+				$Settings.gem_gems_aftertime,
+				$Settings.gem_gems_ontime,
+				$Settings.gem_gems_beforetime,
+				$Settings.gem_gems_notime
+			).toString()
+		);
 </script>
 
 <div
@@ -68,6 +85,7 @@
 	class:shouldbealreadydone={daysleft < 0}
 	class:done
 	id="task"
+	bind:this={taskNode}
 >
 	<input type="button" id="done" on:click={handleDone} />
 
@@ -82,7 +100,7 @@
 		}}
 	/>
 
-	{#if $Settings.gem_enable}
+	{#if $Settings.gem_enable && $Settings.gem_show_badge}
 		<div id="gemcounter" class:gem-undefined={task.gems === undefined}>
 			<i class="fa-regular fa-gem" />
 			<div>{gemcount}</div>
@@ -136,7 +154,12 @@
 	}
 
 	#gemcounter {
-		background-color: lightblue;
+		background-color: color-mix(
+			in oklab,
+			lightgray
+				calc(100% - 100% * (var(--gem-count) / var(--gem-count-max))),
+			#19f calc(100% * (var(--gem-count) / var(--gem-count-max)))
+		);
 		border-radius: 1rem;
 		height: 2.5rem;
 		width: 2.5rem;
