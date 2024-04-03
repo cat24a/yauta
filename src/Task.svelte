@@ -123,7 +123,7 @@
 		align-items: center;
 	}
 
-	#task > * {
+	#task > *:not(p) {
 		flex-shrink: 0;
 	}
 
