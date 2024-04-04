@@ -118,18 +118,20 @@
 		}}
 	/>
 
-	{#if $Settings.gem_enable && $Settings.gem_show_badge}
-		<div id="gemcounter" class:gem-undefined={task.gems === undefined}>
-			<i class="fa-regular fa-gem" />
-			<div>{gemcount}</div>
-		</div>
-	{/if}
+	<div id="buttons">
+		<input type="date" bind:value={due} />
 
-	<input type="date" bind:value={due} />
+		{#if $Settings.gem_enable && $Settings.gem_show_badge}
+			<div id="gemcounter" class:gem-undefined={task.gems === undefined}>
+				<i class="fa-regular fa-gem" />
+				<div>{gemcount}</div>
+			</div>
+		{/if}
 
-	<button type="button" id="delete" on:dblclick={deleteThisTask}>
-		<i class="fa-trash-can fa-solid" />
-	</button>
+		<button type="button" id="delete" on:dblclick={deleteThisTask}>
+			<i class="fa-trash-can fa-solid" />
+		</button>
+	</div>
 </div>
 
 <style>
@@ -139,10 +141,6 @@
 		border-top: 1px solid lightgray;
 		width: 100dvw;
 		align-items: center;
-	}
-
-	#task > *:not(p) {
-		flex-shrink: 0;
 	}
 
 	p {
@@ -160,6 +158,7 @@
 		height: 1.5rem;
 		width: 1.5rem;
 		background-color: #eee;
+		flex-shrink: 0;
 	}
 	#done:hover {
 		background-color: #ccc;
@@ -169,6 +168,16 @@
 	}
 	.done #done:hover {
 		background-color: #2af;
+	}
+
+	#buttons {
+		display: flex;
+		flex-grow: 0;
+		flex-shrink: 0;
+		flex-direction: row;
+		align-items: center;
+		justify-content: end;
+		flex-wrap: wrap;
 	}
 
 	#gemcounter {
@@ -188,6 +197,11 @@
 
 	input[type="date"] {
 		height: 3rem;
+	}
+	@media screen and (max-width: 32rem) {
+		input[type="date"] {
+			width: 5rem;
+		}
 	}
 
 	button {
