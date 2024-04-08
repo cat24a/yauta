@@ -77,8 +77,10 @@
 				<button
 					type="button"
 					bind:this={gem_url_new_button}
-					on:dblclick={handleNewGemUrl}>new store (dblclick)</button
+					on:dblclick={handleNewGemUrl}
 				>
+					new store (dblclick)
+				</button>
 			</p>
 			<small>WARNING: gem amount is NOT end-to-end encrypted</small>
 			<p>
@@ -87,6 +89,15 @@
 					type="checkbox"
 					bind:checked={$Settings.gem_show_badge}
 				/>
+				{#if $Settings.gem_show_badge}
+					<div>
+						- Only on big screens:
+						<input
+							type="checkbox"
+							bind:checked={$Settings.gem_badge_desktoponly}
+						/>
+					</div>
+				{/if}
 			</p>
 			<p>
 				Before time gems:

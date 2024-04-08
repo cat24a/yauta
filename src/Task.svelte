@@ -122,7 +122,10 @@
 		<input type="date" bind:value={due} />
 
 		{#if $Settings.gem_enable && $Settings.gem_show_badge}
-			<div id="gemcounter" class:gem-undefined={task.gems === undefined}>
+			<div
+				id="gemcounter"
+				class:desktoponly={$Settings.gem_badge_desktoponly}
+			>
 				<i class="fa-regular fa-gem" />
 				<div>{gemcount}</div>
 			</div>
@@ -198,9 +201,12 @@
 	input[type="date"] {
 		height: 3rem;
 	}
-	@media screen and (max-width: 32rem) {
+	@media screen and (max-width: 50rem) {
 		input[type="date"] {
 			width: 5rem;
+		}
+		.desktoponly {
+			display: none;
 		}
 	}
 

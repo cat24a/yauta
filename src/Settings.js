@@ -36,6 +36,7 @@ export const defaults = {
 	gem_enable: false,
 	gem_url: "PLEASE PRESS THE BUTTON ON THE RIGHT OR IT WON'T WORK",
 	gem_show_badge: true,
+	gem_badge_desktoponly: false,
 	gem_gems_beforetime: 12,
 	gem_gems_ontime: 10,
 	gem_gems_aftertime: 9,
