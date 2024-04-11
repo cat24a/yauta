@@ -120,8 +120,6 @@
 	/>
 
 	<div id="buttons">
-		<input type="date" bind:value={due} />
-
 		{#if $Settings.gem_enable && $Settings.gem_show_badge}
 			<div
 				id="gemcounter"
@@ -131,6 +129,8 @@
 				<div>{gemcount}</div>
 			</div>
 		{/if}
+
+		<input type="date" bind:value={due} />
 
 		<button type="button" id="delete" on:dblclick={deleteThisTask}>
 			<i class="fa-trash-can fa-solid" />
