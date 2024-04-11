@@ -20,23 +20,38 @@ import Settings from "./Settings.js";
 
 let url;
 let enabled;
+let gems;
 Settings.subscribe(settings => {
 	url = settings.gem_url;
 	enabled = settings.gem_enable;
+	gems = settings.gem_amount;
 });
 
 export async function getGems() {
 	if (enabled) {
-		const response = await fetch(url);
-		return Number.parseInt(await response.text());
+		if (url) {
+			const response = await fetch(url);
+			return Number.parseInt(await response.text());
+		} else {
+			return gems;
+		}
+	} else {
+		return 0;
 	}
 }
 
 export async function addGems(amount) {
 	if (enabled) {
-		await fetch(url, {
-			method: "ADD",
-			body: amount,
-		});
+		if (url) {
+			await fetch(url, {
+				method: "ADD",
+				body: amount,
+			});
+		} else {
+			Settings.update(old => ({
+				...old,
+				gem_amount: old.gem_amount + amount,
+			}));
+		}
 	}
 }

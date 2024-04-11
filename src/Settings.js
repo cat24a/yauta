@@ -34,11 +34,12 @@ export const defaults = {
 
 	// gems
 	gem_enable: false,
-	gem_url: "PLEASE PRESS THE BUTTON ON THE RIGHT OR IT WON'T WORK",
+	gem_url: "",
 	gem_show_badge: true,
 	gem_badge_desktoponly: false,
 	gem_gems_beforetime: 12,
 	gem_gems_ontime: 10,
 	gem_gems_aftertime: 9,
 	gem_gems_notime: 12,
+	gem_amount: 0,
 };

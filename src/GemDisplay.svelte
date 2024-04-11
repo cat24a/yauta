@@ -21,8 +21,9 @@
 	import { getGems } from "./gems.js";
 	let gemcount = "loading";
 	function update() {
-		// @ts-ignore
-		getGems().then(amount => (gemcount = amount));
+		if ($Settings.gem_url)
+			// @ts-ignore
+			getGems().then(amount => (gemcount = amount));
 	}
 	setInterval(update, 10000);
 	update();
@@ -32,7 +33,9 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div id="main" on:click={update}>
 	<i class="fa-regular fa-gem"></i>
-	<span id="count">{gemcount}</span>
+	<span id="count">
+		{$Settings.gem_url ? gemcount : $Settings.gem_amount}
+	</span>
 </div>
 
 <style>

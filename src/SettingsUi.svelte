@@ -73,7 +73,11 @@
 		{#if $Settings.gem_enable}
 			<p>
 				Gem store URL:
-				<input type="text" bind:value={$Settings.gem_url} />
+				<input
+					type="text"
+					bind:value={$Settings.gem_url}
+					placeholder="on YAUTA account"
+				/>
 				<button
 					type="button"
 					bind:this={gem_url_new_button}
@@ -82,7 +86,13 @@
 					new store (dblclick)
 				</button>
 			</p>
-			<small>WARNING: gem amount is NOT end-to-end encrypted</small>
+			<small>
+				If a url is present, the gem amount will be stored in the
+				specified location, unencrypted. This will allow external apps
+				to use your gems. If empty, the gem amount will be stored with
+				your YAUTA account and will be end-to-end encrypted, but harder
+				to access by external apps.
+			</small>
 			<p>
 				Show gem badge on tasks:
 				<input
