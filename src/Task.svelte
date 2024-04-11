@@ -113,6 +113,7 @@
 		on:keypress={event => {
 			if (event.key == "Enter") {
 				event.preventDefault();
+				// @ts-ignore
 				event.target.blur(); // works
 			}
 		}}
