@@ -50,7 +50,7 @@ export async function addGems(amount) {
 		} else {
 			Settings.update(old => ({
 				...old,
-				gem_amount: old.gem_amount + amount,
+				gem_amount: +old.gem_amount + amount,
 			}));
 		}
 	}

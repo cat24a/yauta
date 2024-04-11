@@ -17,6 +17,7 @@
 -->
 
 <script>
+	import { onDestroy, onMount } from "svelte";
 	import Settings from "./Settings.js";
 	import { getGems } from "./gems.js";
 	let gemcount = "loading";
@@ -25,8 +26,12 @@
 			// @ts-ignore
 			getGems().then(amount => (gemcount = amount));
 	}
-	setInterval(update, 10000);
-	update();
+	let interval = 0;
+	onMount(() => {
+		interval = setInterval(update, 10000);
+		update();
+	});
+	onDestroy(() => clearInterval(interval));
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

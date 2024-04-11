@@ -30,7 +30,10 @@
 		$Settings.gem_url = `https://gemapi.yauta.top/${url}`;
 		gem_url_new_button.disabled = false;
 	}
+	let gem_edit_dialog;
 </script>
+
+{@debug $Settings}
 
 <main>
 	<h1>YUPS (YAUTA User Preferences and Settings)</h1>
@@ -93,6 +96,38 @@
 				your YAUTA account and will be end-to-end encrypted, but harder
 				to access by external apps.
 			</small>
+			<p>
+				Edit gem amount:
+				<button on:click={() => gem_edit_dialog.showModal()}>
+					edit
+				</button>
+				<dialog bind:this={gem_edit_dialog}>
+					<form
+						method="dialog"
+						on:submit={() => {
+							if ($Settings.gem_url)
+								fetch($Settings.gem_url, {
+									method: "SET",
+									body: $Settings.gem_amount,
+								});
+						}}
+					>
+						<h4>Edit gem amount:</h4>
+						<p>
+							Gem amount:
+							<input
+								type="number"
+								bind:value={$Settings.gem_amount}
+							/>
+							<button>save</button>
+						</p>
+						<small
+							>Not pressing "save" may or may not save your gem
+							amount.</small
+						>
+					</form>
+				</dialog>
+			</p>
 			<p>
 				Show gem badge on tasks:
 				<input
