@@ -84,5 +84,5 @@
 			</td>
 		</tr>
 	</table>
-	<p>{$message}</p>
+	<p><Literal>{$message}</Literal></p>
 </form>

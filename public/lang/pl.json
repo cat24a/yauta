@@ -34,5 +34,10 @@
 	"Debug translations": "Debugowanie tłumaczeń",
 	"Gem amount": "Liczbna diamentów",
 	"save": "zapisz",
-	"Not pressing \"save\" may or may not save your gem amount.": "Nie wciśnięcie \"zapisz\" może zapisać lub nie zapisać liczby diamentów w zależności od różnych czynników."
+	"Not pressing \"save\" may or may not save your gem amount.": "Nie wciśnięcie \"zapisz\" może zapisać lub nie zapisać liczby diamentów w zależności od różnych czynników.",
+	"login required": "trzeba się zalogować",
+	"logging in...": "logowanie…",
+	"wrong password": "złe hasło",
+	"server error": "błąd serwera",
+	"disconnected because of login on another device - please, refresh the page": "Zostałeś wylogowany z powodu logowania na innym urządzeniu - odśwież stronę"
 }
