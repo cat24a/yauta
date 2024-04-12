@@ -17,12 +17,13 @@
 -->
 
 <script>
+	import Literal from "./Literal.svelte";
+
 	import { createEventDispatcher } from "svelte";
 	import { sha3, aes, yautahash } from "./crypto_util.js";
 	import { login, message, setLoginData } from "./account.js";
 	import { sendApiRequest } from "./api.js";
 
-	let dispatchEvent = createEventDispatcher();
 	let isRegistration = false;
 	let actionName;
 	$: actionName = isRegistration ? "Register" : "Log in";
@@ -48,23 +49,23 @@
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
-	<h3>{actionName}:</h3>
+	<h3><Literal>{actionName}:</Literal></h3>
 	<table>
 		<tr>
-			<td>User:</td>
+			<td><Literal>Username:</Literal></td>
 			<td>
 				<input type="text" name="user" bind:value={user} />
 			</td>
 		</tr>
 		<tr>
-			<td>Password:</td>
+			<td><Literal>Password:</Literal></td>
 			<td>
 				<input type="password" name="password" bind:value={pass} />
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<button type="submit">{actionName}</button>
+				<button type="submit"><Literal>{actionName}</Literal></button>
 			</td>
 			<td>
 				<!-- svelte-ignore a11y-invalid-attribute -->
@@ -74,8 +75,11 @@
 					}}
 					href="#"
 				>
-					{#if !isRegistration}don't{/if}
-					have an account?
+					<Literal>
+						{#if !isRegistration}don't have an account?
+						{:else}have an account?
+						{/if}
+					</Literal>
 				</a>
 			</td>
 		</tr>

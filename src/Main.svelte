@@ -21,6 +21,7 @@
 	import App from "./App.svelte";
 	import LoginForm from "./LoginForm.svelte";
 	import SettingsUi from "./SettingsUi.svelte";
+	import Literal from "./Literal.svelte";
 
 	import {
 		login,
@@ -54,5 +55,5 @@
 {:else if $needLogin}
 	<LoginForm />
 {:else}
-	<p>{$message}</p>
+	<p><Literal>{$message}</Literal></p>
 {/if}

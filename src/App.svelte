@@ -19,6 +19,7 @@
 <script>
 	import Task from "./Task.svelte";
 	import NewTaskButton from "./NewTaskButton.svelte";
+	import Literal from "./Literal.svelte";
 
 	import Tasks from "./Tasks.js";
 	import Settings from "./Settings.js";
@@ -49,7 +50,7 @@
 		{/each}
 		<NewTaskButton />
 
-		<h4>Done tasks:</h4>
+		<h4><Literal>Done tasks:</Literal></h4>
 		{#each $Tasks
 			.filter(i => i.done)
 			.sort((a, b) => b.done - a.done) as task (task.id)}

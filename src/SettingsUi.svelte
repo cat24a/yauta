@@ -18,6 +18,9 @@
 
 <script>
 	import Settings from "./Settings";
+	import Literal from "./Literal.svelte";
+
+	import { supported as supportedLangs } from "./lang";
 
 	//gems
 	let gem_url_new_button;
@@ -33,21 +36,28 @@
 	let gem_edit_dialog;
 </script>
 
-{@debug $Settings}
-
 <main>
-	<h1>YUPS (YAUTA User Preferences and Settings)</h1>
+	<h1><Literal>Settings</Literal></h1>
 	<section>
-		<h3>General</h3>
+		<h3><Literal>General</Literal></h3>
 		<p>
-			Show saving state:
+			<Literal>Language</Literal>:
+			<select bind:value={$Settings.general_lang}>
+				<option />
+				{#each supportedLangs as lang (lang)}
+					<option>{lang}</option>
+				{/each}
+			</select>
+		</p>
+		<p>
+			<Literal>Show saving state</Literal>:
 			<input
 				type="checkbox"
 				bind:checked={$Settings.general_showsavingstate}
 			/>
 		</p>
 		<p>
-			Date refresh hour (UTC):
+			<Literal>Date refresh hour (UTC)</Literal>:
 			<input
 				type="number"
 				bind:value={$Settings.general_daterefreshtime}
@@ -55,27 +65,29 @@
 		</p>
 	</section>
 	<section>
-		<h3>Dog settings</h3>
+		<h3><Literal>Dog settings</Literal></h3>
 		<p>
-			Enable dog mode (experimental - use at your own risk)
+			<Literal>
+				Enable dog mode (experimental - use at your own risk)
+			</Literal>
 			<input type="checkbox" bind:checked={$Settings.dogmode} />
 		</p>
 		{#if $Settings.dogmode}
 			<p>
-				Enable dogcheck:
+				<Literal>Enable dogcheck</Literal>:
 				<input type="checkbox" bind:checked={$Settings.dogcheck} />
 			</p>
 		{/if}
 	</section>
 	<section>
-		<h3>Gems</h3>
+		<h3><Literal>Gems</Literal></h3>
 		<p>
-			Enable gems:
+			<Literal>Enable gems</Literal>:
 			<input type="checkbox" bind:checked={$Settings.gem_enable} />
 		</p>
 		{#if $Settings.gem_enable}
 			<p>
-				Gem store URL:
+				<Literal>Gem store URL</Literal>:
 				<input
 					type="text"
 					bind:value={$Settings.gem_url}
@@ -86,20 +98,22 @@
 					bind:this={gem_url_new_button}
 					on:dblclick={handleNewGemUrl}
 				>
-					new store (dblclick)
+					<Literal>new store (dblclick)</Literal>
 				</button>
 			</p>
 			<small>
-				If a url is present, the gem amount will be stored in the
-				specified location, unencrypted. This will allow external apps
-				to use your gems. If empty, the gem amount will be stored with
-				your YAUTA account and will be end-to-end encrypted, but harder
-				to access by external apps.
+				<Literal>
+					If a url is present, the gem amount will be stored in the
+					specified location, unencrypted. This will allow external
+					apps to use your gems. If empty, the gem amount will be
+					stored with your YAUTA account and will be end-to-end
+					encrypted, but harder to access by external apps.
+				</Literal>
 			</small>
 			<p>
-				Edit gem amount:
+				<Literal>Edit gem amount</Literal>:
 				<button on:click={() => gem_edit_dialog.showModal()}>
-					edit
+					<Literal>edit</Literal>
 				</button>
 				<dialog bind:this={gem_edit_dialog}>
 					<form
@@ -112,31 +126,33 @@
 								});
 						}}
 					>
-						<h4>Edit gem amount:</h4>
+						<h4><Literal>Edit gem amount</Literal>:</h4>
 						<p>
-							Gem amount:
+							<Literal>Gem amount</Literal>:
 							<input
 								type="number"
 								bind:value={$Settings.gem_amount}
 							/>
-							<button>save</button>
+							<button><Literal>save</Literal></button>
 						</p>
-						<small
-							>Not pressing "save" may or may not save your gem
-							amount.</small
-						>
+						<small>
+							<Literal>
+								Not pressing "save" may or may not save your gem
+								amount.
+							</Literal>
+						</small>
 					</form>
 				</dialog>
 			</p>
 			<p>
-				Show gem badge on tasks:
+				<Literal>Show gem badge on tasks</Literal>:
 				<input
 					type="checkbox"
 					bind:checked={$Settings.gem_show_badge}
 				/>
 				{#if $Settings.gem_show_badge}
 					<div>
-						- Only on big screens:
+						- <Literal>Only on big screens</Literal>:
 						<input
 							type="checkbox"
 							bind:checked={$Settings.gem_badge_desktoponly}
@@ -145,7 +161,7 @@
 				{/if}
 			</p>
 			<p>
-				Before time gems:
+				<Literal>Before time gems</Literal>:
 				<input
 					type="number"
 					min="0"
@@ -154,7 +170,7 @@
 				/>
 			</p>
 			<p>
-				On time gems:
+				<Literal>On time gems</Literal>:
 				<input
 					type="number"
 					min="0"
@@ -163,7 +179,7 @@
 				/>
 			</p>
 			<p>
-				After time gems:
+				<Literal>After time gems</Literal>:
 				<input
 					type="number"
 					min="0"
@@ -172,7 +188,7 @@
 				/>
 			</p>
 			<p>
-				No time limit gems:
+				<Literal>No time limit gems</Literal>:
 				<input
 					type="number"
 					min="0"
@@ -181,6 +197,19 @@
 				/>
 			</p>
 		{/if}
+	</section>
+	<section>
+		<h3><Literal>Debugging</Literal></h3>
+		<small>
+			<Literal>An average user should not touch these settings.</Literal>
+		</small>
+		<p>
+			<Literal>Debug translations</Literal>:
+			<input
+				type="checkbox"
+				bind:checked={$Settings.debug_translations}
+			/>
+		</p>
 	</section>
 </main>
 

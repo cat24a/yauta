@@ -25,6 +25,7 @@ export default Settings;
 
 export const defaults = {
 	// general
+	general_lang: "",
 	general_showsavingstate: true,
 	general_daterefreshtime: 0,
 
@@ -42,4 +43,7 @@ export const defaults = {
 	gem_gems_aftertime: 9,
 	gem_gems_notime: 12,
 	gem_amount: 0,
+
+	// debugging
+	debug_translations: false,
 };
