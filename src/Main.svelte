@@ -17,7 +17,7 @@
 -->
 
 <script>
-	import Navbar from "./Navbar.svelte";
+	import Navbar from "./navbar/Navbar.svelte";
 	import App from "./App.svelte";
 	import LoginForm from "./LoginForm.svelte";
 	import SettingsUi from "./SettingsUi.svelte";
