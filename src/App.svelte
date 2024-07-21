@@ -17,7 +17,7 @@
 -->
 
 <script>
-	import Task from "./Task.svelte";
+	import Task from "./task/Task.svelte";
 	import NewTaskButton from "./NewTaskButton.svelte";
 	import Literal from "./Literal.svelte";
 

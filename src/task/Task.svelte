@@ -17,10 +17,10 @@
 -->
 
 <script>
-	import Tasks from "./Tasks.js";
-	import Settings from "./Settings.js";
+	import Tasks from "../Tasks.js";
+	import Settings from "../Settings.js";
 
-	import { addGems } from "./gems.js";
+	import { addGems } from "../gems.js";
 
 	export let task;
 

@@ -18,8 +18,8 @@
 
 <script>
 	import { onDestroy, onMount } from "svelte";
-	import Settings from "./Settings.js";
-	import { getGems } from "./gems.js";
+	import Settings from "../Settings.js";
+	import { getGems } from "../gems.js";
 	let gemcount = "loading";
 	function update() {
 		if ($Settings.gem_url)

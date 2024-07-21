@@ -19,8 +19,8 @@
 <script>
 	import { createEventDispatcher } from "svelte";
 
-	import Settings from "./Settings";
-	import { done } from "./account";
+	import Settings from "../Settings";
+	import { done } from "../account";
 
 	import GemDisplay from "./GemDisplay.svelte";
 
