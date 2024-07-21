@@ -3,3 +3,9 @@ body {
 	font-family: sans-serif;
 	height: 100dvh;
 }
+
+@media screen and (max-width: 50rem) {
+	.desktoponly {
+		display: none;
+	}
+}
