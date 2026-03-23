@@ -26,11 +26,11 @@
 	let gem_url_new_button;
 	async function handleNewGemUrl() {
 		gem_url_new_button.disabled = true;
-		const response = await fetch("https://gemapi.yauta.top/", {
+		const response = await fetch("https://gemapi.yauta.1z4.de/", {
 			method: "CREATE",
 		});
 		const url = await response.text();
-		$Settings.gem_url = `https://gemapi.yauta.top/${url}`;
+		$Settings.gem_url = `https://gemapi.yauta.1z4.de/${url}`;
 		gem_url_new_button.disabled = false;
 	}
 	let gem_edit_dialog;

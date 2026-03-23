@@ -25,7 +25,7 @@ import Pako from "pako";
 export async function sendApiRequest(data) {
 	let response;
 	try {
-		response = await fetch("https://yauta.top/api.php", {
+		response = await fetch("https://yauta.1z4.de/api.php", {
 			method: "POST",
 			body: Pako.gzip(JSON.stringify(data)),
 		});
